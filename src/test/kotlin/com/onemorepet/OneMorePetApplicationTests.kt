@@ -9,5 +9,4 @@ class OneMorePetApplicationTests {
     @Test
     fun contextLoads() {
     }
-
 }
