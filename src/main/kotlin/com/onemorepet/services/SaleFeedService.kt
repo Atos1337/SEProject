@@ -23,7 +23,8 @@ class SaleFeedService {
         ageRange: IntRange? = null,
         priceRange: IntRange? = null,
         species: Map<String, Double?>? = null,
-        radius: Double? = null
+        radius: Double? = null,
+        count: Int? = null,
     ): List<PetOffer> {
         return _petOffers.filter { offer ->
             (kind == null || kind == offer.kind) &&
@@ -45,7 +46,7 @@ class SaleFeedService {
                     radius == null || user?.let {
                         user.location.distance(offer.location) <= radius
                     } ?: false
-                    )
+                    ) && (count == null || count <= offer.count)
         }
     }
 }
