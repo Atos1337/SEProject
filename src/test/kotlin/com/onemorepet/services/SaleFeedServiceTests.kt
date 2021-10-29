@@ -14,8 +14,8 @@ import org.springframework.boot.test.context.SpringBootTest
 internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService) {
 
     val petOffers = listOf(
-        PetOffer("cat", mapOf(Pair("simple", 0.9)), 1, 1000, Location(1000.0, 1000.0)),
-        PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000, Location(0.0, 0.0))
+        PetOffer("cat", mapOf(Pair("simple", 0.9)), 1, 1000, Location(1000.0, 1000.0), 10),
+        PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000, Location(0.0, 0.0), 1)
     )
     val users = listOf(
         User("kek", Location(0.0, 0.0))
@@ -65,8 +65,16 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
     @Test
     fun filterByRadius() {
         assertEquals(
-            feedService.filterByParameters(user = users[0], radius = 1000),
+            feedService.filterByParameters(user = users[0], radius = 1000.0),
             listOf(petOffers[1])
+        )
+    }
+
+    @Test
+    fun filterByOfferSize() {
+        assertEquals(
+            feedService.filterByParameters(size = 5),
+            listOf(petOffers[0])
         )
     }
 }
