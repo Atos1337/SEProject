@@ -5,5 +5,6 @@ data class PetOffer(
     val species: Map<String, Double?>,
     val age: Int,
     val price: Int,
-    val location: Location
+    val location: Location,
+    val count: Int
 )
