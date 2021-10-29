@@ -1,5 +1,6 @@
 package com.onemorepet.services
 
+import com.onemorepet.models.Discount
 import com.onemorepet.models.Location
 import com.onemorepet.models.PetOffer
 import com.onemorepet.models.User
@@ -15,11 +16,17 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
         PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000, Location(0.0, 0.0), 1)
     )
     val users = listOf(
-        User("kek", Location(0.0, 0.0))
+        User("kek", Location(0.0, 0.0)),
+        User("lol", Location(0.0, 0.0), Discount(0.5, null))
     )
 
     @Test
-    fun testSmoke() {
+    fun testWithoutDiscount() {
         assertEquals(petOffers[0].price, discountService.calcPrice(user = users[0], petOffers[0]))
+    }
+
+    @Test
+    fun testWithDiscount() {
+        assertEquals(500, discountService.calcPrice(user = users[1], petOffers[0]))
     }
 }
