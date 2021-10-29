@@ -1,6 +1,7 @@
 package com.onemorepet.services
 
 import com.onemorepet.models.PetOffer
+import com.onemorepet.models.User
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,10 +18,12 @@ class SaleFeedService {
     }
 
     fun filterByParameters(
+        user: User? = null,
         kind: String? = null,
         ageRange: IntRange? = null,
         priceRange: IntRange? = null,
-        species: Map<String, Double?>? = null
+        species: Map<String, Double?>? = null,
+        radius: Double? = null
     ): List<PetOffer> {
         return _petOffers.filter { offer ->
             (kind == null || kind == offer.kind) &&
@@ -37,6 +40,11 @@ class SaleFeedService {
                                 } ?: true
                                 )
                     }
+                    ) &&
+                (
+                    radius == null || user?.let {
+                        user.location.distance(offer.location) <= radius
+                    } ?: false
                     )
         }
     }
