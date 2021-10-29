@@ -16,12 +16,21 @@ class SaleFeedService {
         _petOffers.clear()
     }
 
-    fun filterByParameters(kind: String? = null, ageRange: IntRange? = null,
-                           priceRange: IntRange? = null, species: List<String>? = null): List<PetOffer> {
+    fun filterByParameters(
+        kind: String? = null,
+        ageRange: IntRange? = null,
+        priceRange: IntRange? = null,
+        species: Map<String, Double?>? = null
+    ): List<PetOffer> {
         return _petOffers.filter { offer ->
             (kind == null || kind == offer.kind) &&
-                    (ageRange == null || offer.age in ageRange) &&
-                    (priceRange == null || offer.price in priceRange)
+                (ageRange == null || offer.age in ageRange) &&
+                (priceRange == null || offer.price in priceRange) &&
+                (
+                    species == null || species.all {
+                        it.key in offer.species
+                    }
+                    )
         }
     }
 }
