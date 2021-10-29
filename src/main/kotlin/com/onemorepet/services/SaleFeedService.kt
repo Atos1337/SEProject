@@ -28,7 +28,14 @@ class SaleFeedService {
                 (priceRange == null || offer.price in priceRange) &&
                 (
                     species == null || species.all {
-                        it.key in offer.species
+                        it.key in offer.species &&
+                            (
+                                it.value?.let { it_proportion ->
+                                    offer.species[it.key]?.let { offer_proportion ->
+                                        it_proportion <= offer_proportion
+                                    } ?: false
+                                } ?: true
+                                )
                     }
                     )
         }
