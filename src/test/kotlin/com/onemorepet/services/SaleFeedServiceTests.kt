@@ -14,7 +14,7 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
 
     val petOffers = listOf(
         PetOffer("cat", listOf(Pair("simple", 1.0)), 1, 1000),
-        PetOffer("dog", listOf(Pair("simple", 1.0)), 1, 5000)
+        PetOffer("dog", listOf(Pair("simple", 1.0)), 2, 5000)
     )
 
     @BeforeEach
@@ -35,6 +35,11 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
     @Test
     fun filterByKind() {
         assertEquals(feedService.filterByKind("dog"), listOf(petOffers[1]))
+    }
+
+    @Test
+    fun filterByAge() {
+        assertEquals(feedService.filterByAge(2..2), listOf(petOffers[1]))
     }
 
 }
