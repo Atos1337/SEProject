@@ -34,3 +34,12 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+    reports {
+        xml.required.set(true)
+        csv.required.set(true)
+        html.required.set(true)
+    }
+}
