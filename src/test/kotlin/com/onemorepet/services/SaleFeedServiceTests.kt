@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.springframework.beans.factory.annotation.Autowired
 
 @SpringBootTest
-internal class SaleFeedServiceTests(@Autowired val feedService: FeedService) {
+internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService) {
 
     val petOffers = listOf(
         PetOffer("cat", listOf(Pair("simple", 1.0)), 1, 1000),
@@ -28,10 +28,13 @@ internal class SaleFeedServiceTests(@Autowired val feedService: FeedService) {
     }
 
     @Test
-    fun showAll() {
+    fun testShowAll() {
+        assertEquals(feedService.petOffers, petOffers)
+    }
 
-        assertEquals(feedService.showAllOffers(), petOffers)
-
+    @Test
+    fun filterByKind() {
+        assertEquals(feedService.filterByKind("dog"), listOf(petOffers[1]))
     }
 
 }
