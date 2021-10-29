@@ -34,12 +34,17 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
 
     @Test
     fun filterByKind() {
-        assertEquals(feedService.filterByKind("dog"), listOf(petOffers[1]))
+        assertEquals(feedService.filterByParameters(kind = "dog"), listOf(petOffers[1]))
     }
 
     @Test
     fun filterByAge() {
-        assertEquals(feedService.filterByAge(2..2), listOf(petOffers[1]))
+        assertEquals(feedService.filterByParameters(ageRange = 2..2), listOf(petOffers[1]))
+    }
+
+    @Test
+    fun filterByPrice() {
+        assertEquals(feedService.filterByParameters(priceRange = 1500..10000), listOf(petOffers[1]))
     }
 
 }
