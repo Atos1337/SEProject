@@ -1,6 +1,8 @@
 package com.onemorepet.services
 
+import com.onemorepet.models.Location
 import com.onemorepet.models.PetOffer
+import com.onemorepet.models.User
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
@@ -12,8 +14,11 @@ import org.springframework.boot.test.context.SpringBootTest
 internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService) {
 
     val petOffers = listOf(
-        PetOffer("cat", mapOf(Pair("simple", 0.9)), 1, 1000),
-        PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000)
+        PetOffer("cat", mapOf(Pair("simple", 0.9)), 1, 1000, Location(1000.0, 1000.0)),
+        PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000, Location(0.0, 0.0))
+    )
+    val users = listOf(
+        User("kek", Location(0.0, 0.0))
     )
 
     @BeforeEach
@@ -53,7 +58,15 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
 
     @Test
     fun filterBySpeciesProportion() {
-        assertEquals(feedService.filterByParameters(species = mapOf(Pair("simple", 0.5))), listOf(petOffers[1]))
+        assertEquals(feedService.filterByParameters(species = mapOf(Pair("simple", 0.5))), listOf(petOffers[0]))
         assertEquals(feedService.filterByParameters(species = mapOf(Pair("not simple", 0.5))), emptyList<PetOffer>())
+    }
+
+    @Test
+    fun filterByRadius() {
+        assertEquals(
+            feedService.filterByParameters(user = users[0], radius = 1000),
+            listOf(petOffers[1])
+        )
     }
 }
