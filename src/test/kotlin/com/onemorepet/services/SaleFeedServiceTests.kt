@@ -2,19 +2,18 @@ package com.onemorepet.services
 
 import com.onemorepet.models.PetOffer
 import org.junit.jupiter.api.AfterEach
-
-import org.springframework.boot.test.context.SpringBootTest
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService) {
 
     val petOffers = listOf(
-        PetOffer("cat", listOf(Pair("simple", 1.0)), 1, 1000),
-        PetOffer("dog", listOf(Pair("not simple", 1.0)), 2, 5000)
+        PetOffer("cat", mapOf(Pair("simple", 0.9)), 1, 1000),
+        PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000)
     )
 
     @BeforeEach
@@ -49,7 +48,12 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
 
     @Test
     fun filterBySpecies() {
-        assertEquals(feedService.filterByParameters(species = listOf("not simple")), listOf(petOffers[1]))
+        assertEquals(feedService.filterByParameters(species = mapOf(Pair("not simple", null))), listOf(petOffers[1]))
     }
 
+    @Test
+    fun filterBySpeciesProportion() {
+        assertEquals(feedService.filterByParameters(species = mapOf(Pair("simple", 0.5))), listOf(petOffers[1]))
+        assertEquals(feedService.filterByParameters(species = mapOf(Pair("not simple", 0.5))), emptyList<PetOffer>())
+    }
 }
