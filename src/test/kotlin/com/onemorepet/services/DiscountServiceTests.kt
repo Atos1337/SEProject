@@ -17,7 +17,8 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
     )
     val users = listOf(
         User("kek", Location(0.0, 0.0)),
-        User("lol", Location(0.0, 0.0), Discount(0.5, null))
+        User("lol", Location(0.0, 0.0), Discount(0.5, null)),
+        User("zhopa", Location(0.0, 0.0), Discount(0.5, "not simple"))
     )
 
     @Test
@@ -28,5 +29,10 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
     @Test
     fun testWithDiscount() {
         assertEquals(500, discountService.calcPrice(user = users[1], petOffers[0]))
+    }
+
+    @Test
+    fun testWithSpecificDiscount() {
+        assertEquals(petOffers[0].price, discountService.calcPrice(user = users[2], petOffers[0]))
     }
 }
