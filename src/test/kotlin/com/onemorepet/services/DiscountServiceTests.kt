@@ -17,10 +17,11 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
     )
     val users = listOf(
         User("kek", Location(0.0, 0.0)),
-        User("lol", Location(0.0, 0.0), mutableListOf(Discount(0.5, null))),
-        User("zhopa", Location(0.0, 0.0), mutableListOf(Discount(0.5, "dog"))),
-        User("popa", Location(0.0, 0.0), mutableListOf(Discount(0.5, "dog"), Discount(0.5, "cat"))),
-        User("pussy", Location(0.0, 0.0), mutableListOf(Discount(0.5, "cat"), Discount(0.25, "cat")))
+        User("lol", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf(null)))),
+        User("zhopa", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("dog")))),
+        User("popa", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("dog")), Discount(0.5, mutableListOf("cat")))),
+        User("pussy", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("cat")), Discount(0.25, mutableListOf("cat")))),
+        User("ass", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("cat", "dog"))))
     )
 
     @Test
@@ -49,5 +50,9 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
         assertEquals(250, discountService.calcPrice(user = users[4], petOffers[0]))
     }
 
-
+    @Test
+    fun testMultipleDiscount() {
+        assertEquals(500, discountService.calcPrice(user = users[5], petOffers[0]))
+        assertEquals(2500, discountService.calcPrice(user = users[5], petOffers[1]))
+    }
 }
