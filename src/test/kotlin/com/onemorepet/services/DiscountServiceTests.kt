@@ -55,4 +55,13 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
         assertEquals(500, discountService.calcPrice(user = users[5], petOffers[0]))
         assertEquals(2500, discountService.calcPrice(user = users[5], petOffers[1]))
     }
+
+    @Test
+    fun testGetAllWithDogDiscount() {
+        val data = mutableListOf(users[2], users[3])
+        assertEquals(
+            data,
+            discountService.getUserWithSpecifiedDiscount(data, "dog")
+        )
+    }
 }
