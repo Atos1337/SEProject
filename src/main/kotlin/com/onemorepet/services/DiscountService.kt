@@ -7,9 +7,14 @@ import org.springframework.stereotype.Service
 @Service
 class DiscountService {
     fun calcPrice(user: User, offer: PetOffer): Int {
-        if (user.discounts == null || (!user.discounts.kind.equals(offer.kind) && user.discounts.kind != null)) {
+        if (user.discounts == null) {
             return offer.price
         }
-        return (offer.price * user.discounts.value).toInt()
+        for (discount in user.discounts) {
+            if (discount.kind == null || discount.kind == offer.kind) {
+                return (offer.price * discount.value).toInt()
+            }
+        }
+        return offer.price
     }
 }
