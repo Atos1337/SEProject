@@ -13,10 +13,16 @@ class DiscountService {
         }
         var price = offer.price
         for (discount in user.discounts) {
-            if (discount.kind == null || discount.kind == offer.kind) {
-                price = min(price, (offer.price * discount.value).toInt())
+            for (kind in discount.kinds) {
+                if (kind == null || kind == offer.kind) {
+                    price = min(price, (offer.price * discount.value).toInt())
+                }
             }
         }
         return price
+    }
+
+    fun getUserWithSpecifiedDiscount(users: List<User>, kind: String): List<User> {
+        throw NotImplementedError()
     }
 }
