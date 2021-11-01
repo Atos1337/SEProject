@@ -17,8 +17,8 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
     )
     val users = listOf(
         User("kek", Location(0.0, 0.0)),
-        User("lol", Location(0.0, 0.0), Discount(0.5, null)),
-        User("zhopa", Location(0.0, 0.0), Discount(0.5, "not simple"))
+        User("lol", Location(0.0, 0.0), mutableListOf(Discount(0.5, null))),
+        User("zhopa", Location(0.0, 0.0), mutableListOf(Discount(0.5, "not simple")))
     )
 
     @Test
