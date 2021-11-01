@@ -23,6 +23,20 @@ class DiscountService {
     }
 
     fun getUserWithSpecifiedDiscount(users: List<User>, kind: String): List<User> {
-        throw NotImplementedError()
+        val specifiedUsers = mutableListOf<User>()
+        for (user in users) {
+            if (user.discounts == null) {
+                continue
+            }
+            for (discount in user.discounts) {
+                for (cur_kind in discount.kinds) {
+                    if (cur_kind.equals(kind)) {
+                        specifiedUsers.add(user)
+                    }
+                }
+
+            }
+        }
+        return specifiedUsers
     }
 }
