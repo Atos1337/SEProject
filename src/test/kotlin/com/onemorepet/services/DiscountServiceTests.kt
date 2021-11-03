@@ -19,8 +19,18 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
         User("kek", Location(0.0, 0.0)),
         User("lol", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf(null)))),
         User("zhopa", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("dog")))),
-        User("popa", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("dog")), Discount(0.5, mutableListOf("cat")))),
-        User("pussy", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("cat")), Discount(0.25, mutableListOf("cat")))),
+        User(
+            "popa", Location(0.0, 0.0),
+            mutableListOf(
+                Discount(0.5, mutableListOf("dog")), Discount(0.5, mutableListOf("cat"))
+            )
+        ),
+        User(
+            "pussy", Location(0.0, 0.0),
+            mutableListOf(
+                Discount(0.5, mutableListOf("cat")), Discount(0.25, mutableListOf("cat"))
+            )
+        ),
         User("ass", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("cat", "dog"))))
     )
 

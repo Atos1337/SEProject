@@ -2,8 +2,8 @@ package com.onemorepet.services
 
 import com.onemorepet.models.PetOffer
 import com.onemorepet.models.User
-import org.springframework.stereotype.Service
 import java.lang.Integer.min
+import org.springframework.stereotype.Service
 
 @Service
 class DiscountService {
@@ -34,7 +34,6 @@ class DiscountService {
                         specifiedUsers.add(user)
                     }
                 }
-
             }
         }
         return specifiedUsers
