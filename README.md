@@ -30,7 +30,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate. Thank you for your recommendations and suggestions!
 
 ## License
-[GNU AFFERO GENERAL PUBLIC LICENSE](https://www.gnu.org/licenses/agpl-3.0)
+[GNU AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0)
 
 ## Links
 * [Issue tracker](https://github.com/Atos1337/SEProject/issues)
