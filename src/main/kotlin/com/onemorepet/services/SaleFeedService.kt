@@ -49,4 +49,8 @@ class SaleFeedService {
                     ) && (count == null || count <= offer.count)
         }
     }
+
+    fun removeOffer(petOffer: PetOffer) {
+        _petOffers.removeIf { it == petOffer }
+    }
 }

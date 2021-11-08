@@ -77,4 +77,22 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
             listOf(petOffers[0])
         )
     }
+
+    @Test
+    fun testRemoveOfferThatExists() {
+        feedService.removeOffer(petOffers[0])
+        assertEquals(
+            feedService.petOffers,
+            listOf(petOffers[1])
+        )
+    }
+
+    @Test
+    fun testRemoveOfferThatNotExists() {
+        feedService.removeOffer(PetOffer("cat", mapOf(Pair("simple", 1.0)), 1, 1000, Location(1000.0, 1000.0), 5))
+        assertEquals(
+            feedService.petOffers,
+            petOffers
+        )
+    }
 }
