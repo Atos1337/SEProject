@@ -2,6 +2,8 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)
 ![workflow](https://github.com/Atos1337/SEProject/actions/workflows/github-actions.yml/badge.svg)
+![GitHub release](https://img.shields.io/github/v/release/Atos1337/SEProject?style=plastic)
+
 
 ## Introduction
 
