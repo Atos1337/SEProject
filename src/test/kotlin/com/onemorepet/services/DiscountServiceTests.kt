@@ -16,22 +16,22 @@ internal class DiscountServiceTests(@Autowired val discountService: DiscountServ
         PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000, Location(0.0, 0.0), 1)
     )
     val users = listOf(
-        User("kek", Location(0.0, 0.0)),
-        User("lol", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf(null)))),
-        User("zhopa", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("dog")))),
+        User("Alex", Location(0.0, 0.0)),
+        User("Andrew", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf(null)))),
+        User("Anna", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("dog")))),
         User(
-            "popa", Location(0.0, 0.0),
+            "Sasha", Location(0.0, 0.0),
             mutableListOf(
                 Discount(0.5, mutableListOf("dog")), Discount(0.5, mutableListOf("cat"))
             )
         ),
         User(
-            "pussy", Location(0.0, 0.0),
+            "Evgraf", Location(0.0, 0.0),
             mutableListOf(
                 Discount(0.5, mutableListOf("cat")), Discount(0.25, mutableListOf("cat"))
             )
         ),
-        User("ass", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("cat", "dog"))))
+        User("Macbook", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("cat", "dog"))))
     )
 
     @Test
