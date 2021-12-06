@@ -15,9 +15,6 @@ jobs:
             -   name: Grant execute permission for gradlew
                 run: chmod +x gradlew
 
-            -   name: Run code style check
-                run: ./gradlew ktlintCheck
-
             -   name: Build project
                 run: ./gradlew build
 
@@ -26,3 +23,9 @@ jobs:
 
             -   name: Generate JaCoCo report
                 run: ./gradlew test jacocoTestReport
+
+            -   name: Upload JaCoCo coverage report
+                uses: actions/upload-artifact@v2
+                with:
+                    name: jacoco-report
+                    path: build/reports/jacoco/test/html
