@@ -28,25 +28,25 @@ class SaleFeedService {
     ): List<PetOffer> {
         return _petOffers.filter { offer ->
             (kind == null || kind == offer.kind) &&
-                (ageRange == null || offer.age in ageRange) &&
-                (priceRange == null || offer.price in priceRange) &&
-                (
-                    species == null || species.all {
-                        it.key in offer.species &&
-                            (
-                                it.value?.let { it_proportion ->
-                                    offer.species[it.key]?.let { offer_proportion ->
-                                        it_proportion <= offer_proportion
-                                    } ?: false
-                                } ?: true
-                                )
-                    }
-                    ) &&
-                (
-                    radius == null || user?.let {
-                        user.location.distance(offer.location) <= radius
-                    } ?: false
-                    ) && (count == null || count <= offer.count)
+                    (ageRange == null || offer.age in ageRange) &&
+                    (priceRange == null || offer.price in priceRange) &&
+                    (
+                            species == null || species.all {
+                                it.key in offer.species &&
+                                        (
+                                                it.value?.let { it_proportion ->
+                                                    offer.species[it.key]?.let { offer_proportion ->
+                                                        it_proportion <= offer_proportion
+                                                    } ?: false
+                                                } ?: true
+                                                )
+                            }
+                            ) &&
+                    (
+                            radius == null || user?.let {
+                                user.location.distance(offer.location) <= radius
+                            } ?: false
+                            ) && (count == null || count <= offer.count)
         }
     }
 
