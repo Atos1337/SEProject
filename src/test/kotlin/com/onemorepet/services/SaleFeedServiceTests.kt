@@ -14,11 +14,11 @@ import org.springframework.boot.test.context.SpringBootTest
 internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService) {
 
     val petOffers = listOf(
-        PetOffer("cat", mapOf(Pair("simple", 0.9)), 1, 1000, Location(1000.0, 1000.0), 5),
-        PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000, Location(0.0, 0.0), 1)
+        PetOffer("cat", mapOf("simple" to 0.9), 1, 1000, Location(1000.0, 1000.0), 5),
+        PetOffer("dog", mapOf("not simple" to 0.3), 2, 5000, Location(0.0, 0.0), 1)
     )
     val users = listOf(
-        User("kek", Location(0.0, 0.0))
+        User("Vova", Location(0.0, 0.0))
     )
 
     @BeforeEach
@@ -53,13 +53,13 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
 
     @Test
     fun filterBySpecies() {
-        assertEquals(feedService.filterByParameters(species = mapOf(Pair("not simple", null))), listOf(petOffers[1]))
+        assertEquals(feedService.filterByParameters(species = mapOf("not simple" to null)), listOf(petOffers[1]))
     }
 
     @Test
     fun filterBySpeciesProportion() {
-        assertEquals(feedService.filterByParameters(species = mapOf(Pair("simple", 0.5))), listOf(petOffers[0]))
-        assertEquals(feedService.filterByParameters(species = mapOf(Pair("not simple", 0.5))), emptyList<PetOffer>())
+        assertEquals(feedService.filterByParameters(species = mapOf("simple" to 0.5)), listOf(petOffers[0]))
+        assertEquals(feedService.filterByParameters(species = mapOf("not simple" to 0.5)), emptyList<PetOffer>())
     }
 
     @Test
@@ -89,7 +89,7 @@ internal class SaleFeedServiceTests(@Autowired val feedService: SaleFeedService)
 
     @Test
     fun testRemoveOfferThatNotExists() {
-        feedService.removeOffer(PetOffer("cat", mapOf(Pair("simple", 1.0)), 1, 1000, Location(1000.0, 1000.0), 5))
+        feedService.removeOffer(PetOffer("cat", mapOf("simple" to 1.0), 1, 1000, Location(1000.0, 1000.0), 5))
         assertEquals(
             feedService.petOffers,
             petOffers
