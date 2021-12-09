@@ -9,10 +9,6 @@ insert_final_newline = true
 max_line_length = 120
 tab_width = 4
 ij_continuation_indent_size = 8
-ij_formatter_off_tag = @formatter:off
-ij_formatter_on_tag = @formatter:on
-ij_formatter_tags_enabled = false
-ij_smart_tabs = false
 
 [{*.kt,*.kts}]
 ij_kotlin_align_in_columns_case_branch = false
@@ -28,8 +24,8 @@ ij_kotlin_blank_lines_after_class_header = 0
 ij_kotlin_blank_lines_around_block_when_branches = 0
 ij_kotlin_blank_lines_before_declaration_with_comment_or_annotation_on_separate_line = 1
 ij_kotlin_block_comment_at_first_column = true
-ij_kotlin_call_parameters_new_line_after_left_paren = true
-ij_kotlin_call_parameters_right_paren_on_new_line = true
+ij_kotlin_call_parameters_new_line_after_left_paren = false
+ij_kotlin_call_parameters_right_paren_on_new_line = false
 ij_kotlin_call_parameters_wrap = on_every_item
 ij_kotlin_catch_on_new_line = false
 ij_kotlin_class_annotation_wrap = split_into_lines
