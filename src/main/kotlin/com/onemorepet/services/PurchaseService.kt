@@ -12,11 +12,8 @@ class PurchaseService(
 ) {
     fun buy(user: User, petOffer: PetOffer) {
         val price: Int = discountService.calcPrice(user, petOffer)
-        if (price <= user.balance) {
-            saleFeedService.removeOffer(petOffer)
-            user.balance -= price
-        } else {
-            throw IllegalStateException("Not enough money")
-        }
+        check(price <= user.balance) { "Not enough money" }
+        saleFeedService.removeOffer(petOffer)
+        user.balance -= price
     }
 }
