@@ -15,18 +15,15 @@ internal class PurchaseServiceTest(
     @Autowired val saleFeedService: SaleFeedService,
     @Autowired val purchaseService: PurchaseService
 ) {
-    val petOffers = listOf(
-        PetOffer("cat", mapOf(Pair("simple", 0.9)), 1, 1000, Location(1000.0, 1000.0), 5),
-        PetOffer("dog", mapOf(Pair("not simple", 0.3)), 2, 5000, Location(0.0, 0.0), 1)
-    )
-    val users = listOf(
-        User("kek", Location(0.0, 0.0), balance = 10000),
-        User("kek", Location(0.0, 0.0), balance = 10)
-    )
+    val catOffer = PetOffer("cat", mapOf("simple" to 0.9), 1, 1000, Location(1000.0, 1000.0), 5)
+    val dogOffer = PetOffer("dog", mapOf("not simple" to 0.3), 2, 5000, Location(0.0, 0.0), 1)
+
+    val enoughMoneyUser = User("Vova", Location(0.0, 0.0), balance = 10000)
+    val notEnoughMoneyUser = User("Sasha", Location(0.0, 0.0), balance = 10)
 
     @BeforeEach
     fun fill() {
-        saleFeedService.addOffers(petOffers)
+        saleFeedService.addOffers(listOf(catOffer, dogOffer))
     }
 
     @AfterEach
@@ -36,8 +33,8 @@ internal class PurchaseServiceTest(
 
     @Test
     fun testEnoughMoney() {
-        val user = users[0]
-        val petOffer = petOffers[0]
+        val user = enoughMoneyUser
+        val petOffer = catOffer
         purchaseService.buy(user, petOffer)
         Assertions.assertEquals(
             9000,
@@ -45,14 +42,14 @@ internal class PurchaseServiceTest(
         )
         Assertions.assertEquals(
             saleFeedService.petOffers,
-            listOf(petOffers[1])
+            listOf(dogOffer)
         )
     }
 
     @Test
     fun testNotEnoughMoney() {
-        val user = users[1]
-        val petOffer = petOffers[1]
+        val user = notEnoughMoneyUser
+        val petOffer = dogOffer
         Assertions.assertThrows(
             IllegalStateException::class.java
         ) { purchaseService.buy(user, petOffer) }
@@ -63,7 +60,7 @@ internal class PurchaseServiceTest(
         )
         Assertions.assertEquals(
             saleFeedService.petOffers,
-            petOffers
+            listOf(catOffer, dogOffer)
         )
     }
 }

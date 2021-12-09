@@ -11,64 +11,65 @@ import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
 internal class DiscountServiceTests(@Autowired val discountService: DiscountService) {
-    val petOffers = listOf(
-        PetOffer("cat", mapOf("simple" to 0.9), 1, 1000, Location(1000.0, 1000.0), 5),
-        PetOffer("dog", mapOf("not simple" to 0.3), 2, 5000, Location(0.0, 0.0), 1)
+    val catOffer = PetOffer("cat", mapOf("simple" to 0.9), 1, 1000, Location(1000.0, 1000.0), 5)
+    val dogOffer = PetOffer("dog", mapOf("not simple" to 0.3), 2, 5000, Location(0.0, 0.0), 1)
+
+    val userWithoutDiscount = User("Alex", Location(0.0, 0.0))
+    val userWithAllDiscount = User("Andrew", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf(null))))
+    val userWithDogDiscount = User("Anna", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("dog"))))
+    val userWithSeveralDiscount = User(
+        "Sasha", Location(0.0, 0.0),
+        mutableListOf(
+            Discount(0.5, mutableListOf("dog")), Discount(0.5, mutableListOf("cat"))
+        )
     )
-    val users = listOf(
-        User("Alex", Location(0.0, 0.0)),
-        User("Andrew", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf(null)))),
-        User("Anna", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("dog")))),
-        User(
-            "Sasha", Location(0.0, 0.0),
-            mutableListOf(
-                Discount(0.5, mutableListOf("dog")), Discount(0.5, mutableListOf("cat"))
-            )
-        ),
-        User(
-            "Evgraf", Location(0.0, 0.0),
-            mutableListOf(
-                Discount(0.5, mutableListOf("cat")), Discount(0.25, mutableListOf("cat"))
-            )
-        ),
-        User("Macbook", Location(0.0, 0.0), mutableListOf(Discount(0.5, mutableListOf("cat", "dog"))))
+    val userWithSmallerSeveralDiscount = User(
+        "Evgraf", Location(0.0, 0.0),
+        mutableListOf(
+            Discount(0.5, mutableListOf("cat")), Discount(0.25, mutableListOf("cat"))
+        )
+    )
+    val userWithMultipleDiscount = User(
+        "Macbook",
+        Location(0.0, 0.0),
+        mutableListOf(Discount(0.5, mutableListOf("cat", "dog")))
     )
 
     @Test
     fun testWithoutDiscount() {
-        assertEquals(petOffers[0].price, discountService.calcPrice(user = users[0], petOffers[0]))
+        assertEquals(catOffer.price, discountService.calcPrice(user = userWithoutDiscount, catOffer))
     }
 
     @Test
     fun testWithDiscount() {
-        assertEquals(500, discountService.calcPrice(user = users[1], petOffers[0]))
+        assertEquals(500, discountService.calcPrice(user = userWithAllDiscount, catOffer))
     }
 
     @Test
     fun testWithSpecificDiscount() {
-        assertEquals(petOffers[0].price, discountService.calcPrice(user = users[2], petOffers[0]))
+        assertEquals(catOffer.price, discountService.calcPrice(user = userWithDogDiscount, catOffer))
     }
 
     @Test
     fun testSeveralDiscount() {
-        assertEquals(500, discountService.calcPrice(user = users[3], petOffers[0]))
-        assertEquals(2500, discountService.calcPrice(user = users[3], petOffers[1]))
+        assertEquals(500, discountService.calcPrice(user = userWithSeveralDiscount, catOffer))
+        assertEquals(2500, discountService.calcPrice(user = userWithSeveralDiscount, dogOffer))
     }
 
     @Test
     fun testOptimalDiscount() {
-        assertEquals(250, discountService.calcPrice(user = users[4], petOffers[0]))
+        assertEquals(250, discountService.calcPrice(user = userWithSmallerSeveralDiscount, catOffer))
     }
 
     @Test
     fun testMultipleDiscount() {
-        assertEquals(500, discountService.calcPrice(user = users[5], petOffers[0]))
-        assertEquals(2500, discountService.calcPrice(user = users[5], petOffers[1]))
+        assertEquals(500, discountService.calcPrice(user = userWithMultipleDiscount, catOffer))
+        assertEquals(2500, discountService.calcPrice(user = userWithMultipleDiscount, dogOffer))
     }
 
     @Test
     fun testGetAllWithDogDiscount() {
-        val data = mutableListOf(users[2], users[3])
+        val data = mutableListOf(userWithDogDiscount, userWithSeveralDiscount)
         assertEquals(
             data,
             discountService.getUserWithSpecifiedDiscount(data, "dog")
