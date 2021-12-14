@@ -31,5 +31,5 @@
 ## User Case Diagram
 
 <p align="center">
-  <img src="/images/diagram.png" title="Use Case Diagram" alt="Use Case Diagram">
+  <img src="/images/diagram.pdf" title="Use Case Diagram" alt="Use Case Diagram">
 </p>
