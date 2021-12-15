@@ -28,7 +28,7 @@
 * The owner's dog gave birth, he has nowhere to put the puppies, he puts them on our trading floor. As a result, he gets money and time saved.
 * A man wants to buy a puppy for his daughter. He comes into our application, we provide him with a large selection of healthy and thoroughbred puppies.
 
-## User Case Diagram
+## Use Case Diagram
 
 <p align="center">
   <img src="/images/diagram.pdf" title="Use Case Diagram" alt="Use Case Diagram">
