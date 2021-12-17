@@ -5,11 +5,36 @@
 ![workflow](https://github.com/Atos1337/SEProject/actions/workflows/github-actions.yml/badge.svg)
 [![GitHub release](https://img.shields.io/github/v/release/Atos1337/SEProject)](https://github.com/Atos1337/SEProject/releases)
 
-## Introduction
+## Description
 
-#### Project presentation
+This application is designed to help you:
 
-https://docs.google.com/presentation/d/13URDwTgtGv1B_KVNqwQ5dszCVNtHS9kj47s_LN7Gxdo
+- Find partner for your favourite pet
+- Simplify process of selling pets and their puppies
+
+Detailed project presentation is available [here](https://docs.google.com/presentation/d/13URDwTgtGv1B_KVNqwQ5dszCVNtHS9kj47s_LN7Gxdo).
+
+## Build
+
+Clone our repository and run:
+```shell
+./gradlew build
+```
+
+## Usage
+
+Now you can only say hello to our application and see greetings from us. Run:
+```shell
+./gradlew bootRun
+```
+Then make request by curl or browser:
+```shell
+curl localhost:8080/hello?name=Vitya
+```
+And you will see:
+```shell
+Hello Vitya from OneMorePet
+```
 
 ## Project ROADMAP
 
