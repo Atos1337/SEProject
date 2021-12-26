@@ -1,6 +1,5 @@
-FROM gradle
+FROM gradle:7.3.3
 WORKDIR /home/gradle/OneMorePet
-RUN git clone https://github.com/Atos1337/SEProject.git .
+ADD . .
 RUN gradle dependencies --no-daemon
 RUN gradle build --no-daemon
-RUN gradle test --no-daemon
